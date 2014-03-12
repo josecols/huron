@@ -6,12 +6,9 @@ Hurón es un script para bajar listas de reproducción desde 8tracks. Debido a c
 Utilización
 -------------
 
-Para utilizar el script simplemente se debe ejecutar desde la línea de comando:
-`python huron.py <url_playlist>`
+Para utilizar el script simplemente se debe ejecutar desde la línea de comando: `python huron.py <url_playlist>`. Dónde `<url_playlist>` es la URL del playlist en 8tracks, incluyendo `http://`.
 
-Dónde <url_playlist> es la URL del playlist en 8tracks incluyendo `http://`.
-
-También se puede ejecutar simplemente `python huron.py`, el script solicitará la URL por la consola.
+También se puede ejecutar simplemente `python huron.py`, el script solicitará la URL por la línea de comando.
 
 josecolsg@gmail.com
 
