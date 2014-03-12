@@ -1,7 +1,7 @@
 Hurón
 =====
 
-Hurón es un script para bajar listas de reproducción desde 8tracks. Debido a cambios en la API, después de la tercera canción se debe esperar un tiempo para que la solicitud no sea reconocida como un `skip`.
+Hurón es un script para descargar listas de reproducción desde 8tracks. Debido a cambios en la API, después de la tercera canción se debe esperar un tiempo para que la solicitud no sea reconocida como un `skip`.
 
 Utilización
 -------------
