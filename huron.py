@@ -79,12 +79,11 @@ class Huron:
                               self.directorio + r['set']['track']['name'] + '.mp3')
             
             self.debug(cancion)                           
-            self.guardar(cancion)        
-            delta = int(time.clock() - inicio)            
+            self.guardar(cancion)
             
             if i > 2:
                 audio = MP3(cancion.archivo)
-                time.sleep(int(audio.info.length) - delta)
+                time.sleep(int(audio.info.length) - int(time.clock() - inicio))
             
             requests.get('http://8tracks.com/sets/%s/report.json?track_id=[%s]&mix_id=[%s]'
                           % (self.token, cancion.id, self.mix.id),
@@ -147,8 +146,4 @@ class Mix:
 
 if __name__ == '__main__':
     huron = Huron(API_KEY, sys.argv[1] if len(sys.argv) > 1 else raw_input("Ingresa URL del playlist\n"))
-    try:
-        huron.ejecutar()
-    except Exception, e:
-        print e
-        raw_input('asd')
+    huron.ejecutar()
