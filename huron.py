@@ -12,6 +12,72 @@ API_KEY = 'ba584160f1b8564f82d78529eada82179edc0fbb'
 API_VERSION = 3
 
 
+class Cancion:
+
+    def __init__(
+        self,
+        cancion_id,
+        nombre,
+        album,
+        fecha,
+        artista,
+        url,
+        archivo,
+        ):
+
+        self.id = cancion_id
+        self.nombre = nombre
+        self.album = album
+        self.fecha = fecha
+        self.artista = artista
+        self.url = url
+        self.archivo = archivo
+
+    def __unicode__(self):
+        return self.nombre
+
+    def __str__(self):
+        return self.nombre
+    
+    
+class Mix:
+
+    def __init__(
+        self,
+        nombre,
+        mix_id,
+        canciones,
+        cover,
+        ):
+
+        self.nombre = nombre
+        self.id = mix_id
+        self.canciones = canciones
+        self.cover = cover
+        self.cover_archivo = None
+
+    def __del__(self):
+        try:
+            os.remove(self.cover_archivo)
+        except OSError:
+            pass
+
+    def __unicode__(self):
+        return self.nombre
+
+    def __str__(self):
+        return self.nombre
+
+    def crear_cover(self, directorio):
+        self.cover_archivo = directorio + 'cover.jpg'
+        with open(self.cover_archivo, 'wb') as handle:
+            request = requests.get(self.cover, stream=True)
+            for block in request.iter_content():
+                if not block:
+                    break
+                handle.write(block)
+                
+                
 class Huron:
 
     def __init__(self, api_key, mix_url):
@@ -83,7 +149,7 @@ class Huron:
                 self.directorio + self.clean_nombre(r['set']['track']['name']) + '.mp3',
                 )
 
-            self.debug(cancion)
+            self.debug(cancion, i)
             self.guardar(cancion)
 
             if i > 2:
@@ -96,79 +162,13 @@ class Huron:
                          headers={'X-Api-Key': API_KEY,
                          'X-Api-Version': API_VERSION})
 
-    def debug(self, cancion):
-        print 'Descargando canción: %s' % str(cancion)
+    def debug(self, cancion, i):
+        print '%d%% - Descargando canción (%d de %d): %s' % (int((i * 100) / 32), i + 1, self.mix.canciones, str(cancion))
         
     def clean_nombre(self, nombre):
         return ''.join([c for c in nombre if c.isalpha()
                                or c.isdigit() or c == ' ' or c == '('
                                or c == ')' or c == '-']).rstrip()
-
-
-class Cancion:
-
-    def __init__(
-        self,
-        cancion_id,
-        nombre,
-        album,
-        fecha,
-        artista,
-        url,
-        archivo,
-        ):
-
-        self.id = cancion_id
-        self.nombre = nombre
-        self.album = album
-        self.fecha = fecha
-        self.artista = artista
-        self.url = url
-        self.archivo = archivo
-
-    def __unicode__(self):
-        return self.nombre
-
-    def __str__(self):
-        return self.nombre
-
-
-class Mix:
-
-    def __init__(
-        self,
-        nombre,
-        mix_id,
-        canciones,
-        cover,
-        ):
-
-        self.nombre = nombre
-        self.id = mix_id
-        self.canciones = canciones
-        self.cover = cover
-        self.cover_archivo = None
-
-    def __del__(self):
-        try:
-            os.remove(self.cover_archivo)
-        except OSError:
-            pass
-
-    def __unicode__(self):
-        return self.nombre
-
-    def __str__(self):
-        return self.nombre
-
-    def crear_cover(self, directorio):
-        self.cover_archivo = directorio + 'cover.jpg'
-        with open(self.cover_archivo, 'wb') as handle:
-            request = requests.get(self.cover, stream=True)
-            for block in request.iter_content():
-                if not block:
-                    break
-                handle.write(block)
 
 
 if __name__ == '__main__':
