@@ -20,4 +20,4 @@ También se puede ejecutar simplemente `python huron.py`, el script solicitará 
 
 josecolsg@gmail.com
 
-<p align="center"><img src="https://raw.githubusercontent.com/josecols/huron/master/huron/huron.png" alt="Hurón" width="164"/></p>
+<p align="center"><img src="https://raw.githubusercontent.com/josecols/huron/master/huron/huron.png" alt="Hurón" width="128"/></p>
