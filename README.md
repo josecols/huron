@@ -9,7 +9,7 @@ Este script depende de dos librerías [requests](https://pypi.python.org/pypi/re
 
 Distribución
 ------------
-En la carpeta [dist](https://github.com/josecols/huron/tree/master/dist) se encuentra la distribución para Windows. Para utilizarla se debe ejecutar huron.exe e ingresar la URL de la lista de reproducción en 8tracks.
+En la carpeta [dist](https://github.com/josecols/huron/tree/master/dist) se encuentra la distribución para Windows. Para utilizarla se debe ejecutar `huron.exe` e ingresar la URL de la lista de reproducción en 8tracks.
 
 Utilización
 -----------
