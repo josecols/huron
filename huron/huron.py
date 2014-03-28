@@ -1,13 +1,13 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import requests
+import re
 import os
 import sys
-import string
 import time
-import re
+import string
 import subprocess
+import requests
 import mutagen.id3
 from mutagen import File
 
@@ -66,6 +66,7 @@ class EightTracks:
 
     def __init__(self, mix_url):                
         self.mix = Mix(*Mix.atributos(requests.get(mix_url + '.json', headers=EightTracks.headers).json()))
+        os.environ['REQUESTS_CA_BUNDLE'] = os.path.join(os.getcwd(), 'cacert.pem')
 
     def guardar(self):
         self.mix.guardar()
@@ -233,11 +234,11 @@ class Mix:
         if not os.path.exists(self.directorio):
             os.makedirs(self.directorio)
         
-        print 'Descargando playlist %s.' % self.nombre    
+        print u'Descargando playlist %s.' % self.nombre    
         for i in range(self.canciones):            
             inicio = time.clock()            
             cancion = Cancion(*Cancion.atributos(EightTracks.siguiente(self.id), self.directorio, self.cover['url']))
-            print '\tDescargando canción (%d de %d): %s' % (i + 1, self.canciones, cancion)                          
+            print u'\tDescargando canción (%d de %d): %s' % (i + 1, self.canciones, cancion)                       
             cancion.guardar()                                  
             if i > 2:
                 audio = File(cancion.archivo)

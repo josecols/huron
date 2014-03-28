@@ -5,7 +5,7 @@ Hurón es un script para descargar listas de reproducción desde 8tracks. Debido
 
 Dependencias
 ------------
-Este script depende de dos librerías [requests](https://pypi.python.org/pypi/requests) y [mutagen](https://pypi.python.org/pypi/mutagen/1.12).
+Este script depende de dos librerías [requests](https://pypi.python.org/pypi/requests) y [mutagen](https://pypi.python.org/pypi/mutagen).
 
 Utilización
 -----------
