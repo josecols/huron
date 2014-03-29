@@ -244,7 +244,7 @@ class Mix:
             cancion = Cancion(*Cancion.atributos(EightTracks.siguiente(self.id), self.directorio, self.cover['url']))
             print u'\tDescargando canción (%d de %d): %s' % (i + 1, self.canciones, cancion)                       
             cancion.guardar()                                  
-            if i > 2:
+            if i > 2 and i < self.canciones:
                 audio = File(cancion.archivo)
                 time.sleep(int(audio.info.length) - int(time.clock() - inicio))
                 
