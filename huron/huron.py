@@ -186,10 +186,14 @@ class Cancion:
             handle.close()
             
         if self.archivo.endswith('m4a'):
-            subprocess.call(['ffmpeg', '-i', os.path.abspath(self.archivo), os.path.abspath(self.archivo[:-3] + 'mp3')],
-                            stdout=open(os.devnull, 'wb'), stderr=open(os.devnull, 'wb'))            
-            os.remove(self.archivo)
-            self.archivo = self.archivo[:-3] + 'mp3'
+            try:
+                subprocess.call(['ffmpeg', '-i', os.path.abspath(self.archivo), os.path.abspath(self.archivo[:-3] + 'mp3')],
+                                stdout=open(os.devnull, 'wb'), stderr=open(os.devnull, 'wb'))            
+                os.remove(self.archivo)
+                self.archivo = self.archivo[:-3] + 'mp3'
+            except OSError:
+                print '\nNo se pudo encontrar ffmpeg. Algunas canciones no serán convertidas a MP3.\n'
+                return
         self.actualizar()
         self.etiquetas()           
             
