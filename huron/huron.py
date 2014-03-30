@@ -103,6 +103,9 @@ class Cancion:
             os.remove(self.cover['archivo'])
         except OSError:
             pass
+        
+    def __exit__(self, *err):
+        self.eliminar()
 
     def __unicode__(self):
         return unicode(self.nombre + ' - ' + self.artista) 
@@ -123,6 +126,12 @@ class Cancion:
         if self.cover['url'] is None:
             self.cover['url'] = self.cover['mix'] if cover is None else cover
             self.guardar_cover()
+    
+    def eliminar(self):
+        try:
+            os.remove(self.cover['archivo'])
+        except OSError:
+            pass
     
     def etiquetas(self):                    
         try:
@@ -247,8 +256,9 @@ class Mix:
             if i > 2 and i < self.canciones:
                 audio = File(cancion.archivo)
                 time.sleep(int(audio.info.length) - int(time.clock() - inicio))
-                
-            EightTracks.reportar(cancion.id, self.id)             
+            
+            EightTracks.reportar(cancion.id, self.id)
+            cancion.eliminar()    
             
     @staticmethod
     def atributos(r):
