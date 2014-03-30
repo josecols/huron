@@ -194,7 +194,7 @@ class Cancion:
                 handle.write(block)
             handle.close()
             
-        if self.archivo.endswith('m4a'):
+        if not self.archivo.endswith('mp3'):
             try:
                 subprocess.call(['ffmpeg', '-i', os.path.abspath(self.archivo), os.path.abspath(self.archivo[:-3] + 'mp3')],
                                 stdout=open(os.devnull, 'wb'), stderr=open(os.devnull, 'wb'))            
