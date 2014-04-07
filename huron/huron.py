@@ -33,7 +33,7 @@ class Discogs:
                     r['results'][0]['year'].strip(),
                     ', '.join(g.strip() for g in r['results'][0]['genre']),
                     Discogs.cover(r['results'][0]['id']))
-        return (None, None, None, None)
+        return None, None, None, None
 
     @staticmethod
     def cover(release):
@@ -53,7 +53,7 @@ class Soundcloud:
 
     @staticmethod
     def atributos(url):
-        return (url.partition('client_id=')[2], re.search(r'\d+', url).group())
+        return url.partition('client_id=')[2], re.search(r'\d+', url).group()
 
 
 class EightTracks:
@@ -207,10 +207,12 @@ class Cancion:
         self.etiquetas()
 
     def guardar_cover(self):
-        headers = {'User-Agent': 'Mozilla/4.0 (compatible; MSIE 5.5; WindowsNT)',
-                   'Accept': 'text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5',
-                   'Accept-Language': 'fr-fr,en-us;q=0.7,en;q=0.3',
-                   'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.7'
+        headers = {
+            'User-Agent': 'Mozilla/4.0 (compatible; MSIE 5.5; WindowsNT)',
+            'Accept': 'text/xml,application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,'
+                      'image/png,*/*;q=0.5',
+            'Accept-Language': 'fr-fr,en-us;q=0.7,en;q=0.3',
+            'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.7'
         }
         r = requests.get(self.cover['url'], headers=headers, stream=True)
         self.cover['archivo'] = os.path.join(self.cover['archivo'], self.id + '.jpg')
