@@ -174,14 +174,13 @@ class Cancion:
             soundcloud = requests.get(Soundcloud.urls['track'] % (self.sc.cancion, self.sc.id)).json()
             if soundcloud['downloadable']:
                 r = requests.get(self.url.replace('stream', 'download'), stream=True)
-                self.archivo += re.search(r'\"(.+?)\"', r.headers.get('content-disposition')).group(0)[1:-1]
                 self.cover['url'] = ''
             else:
                 r = requests.get(self.url, stream=True)
-                self.archivo += self.nombre + '.' + soundcloud['original_format']
                 if soundcloud['artwork_url']:
                     self.cover['url'] = soundcloud['artwork_url'].replace('large', 't300x300')
                     self.guardar_cover()
+            self.archivo += self.nombre + '.' + soundcloud['original_format']
         else:
             r = requests.get(self.url, stream=True)
             self.archivo += self.nombre + '.m4a'
